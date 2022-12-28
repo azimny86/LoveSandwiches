@@ -66,6 +66,16 @@ def updata_saleas_worksheet(data):
     print("Sales worksheet updated successfully.\n")
 
 
+def updata_surplus_worksheet(data):
+    """
+    Updaate surplus worksheet, add new row with the list data provided.
+    """
+    print("Updating surplus worksheet....\n")
+    surplus_worksheet = SHEET.worksheet('surplus')
+    surplus_worksheet.append_row(data)
+    print("Surplus worksheet updated successfully.\n")
+
+
 def calculate_surplus_date(sales_row):
     """
     Compare sales with stocka and calculate thesurplus for each iteam type.
@@ -93,7 +103,8 @@ def main():
     sales_data = [int(num) for num in data]
     updata_saleas_worksheet(sales_data)
     new_surplus_data = calculate_surplus_date(sales_data)
-    print(new_surplus_data)
+    surplus_data = [int(num) for num in data]
+    updata_surplus_worksheet(new_surplus_data)
 
 
 print("Welcom to Love Sandwitches data automation")
