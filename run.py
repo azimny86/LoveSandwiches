@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -21,14 +20,16 @@ data = sales.get_all_values()
 def get_sales_data():
     """
     Get sales figures input from the user.
-    Run a while loop to collect a valid string of data from the user via the terminal, witch must be a strings of 6 numbers separated by commas. The loop will repealedly request data, until it is valid, 
+    Run a while loop to collect a valid string of data from the user via the 
+    terminal, witch must be a strings of 6 numbers separated by commas. 
+    The loop will repealedly request data, until it is valid, 
     """
     while True:
         print("Please enter sales data from the last market.")
         print("Data should be six numbets, sapreted by commas.")
         print("Example: 10,20,30,40,50,60\n")
 
-        data_str = input("Enter your data here:")
+        data_str = input("Enter your data here:\n")
 
         sales_data = data_str.split(",")
         validate_data(sales_data)
@@ -47,7 +48,7 @@ def validate_data(values):
     """
     try:
         [int(value) for value in values]
-        if len(values) != 6 :
+        if len(values) != 6:
             raise ValueError(
                 f"Exactly 6 values requaired, you provided {len(values)} "
             )
@@ -88,14 +89,16 @@ def calculate_surplus_date(sales_row):
 
     return surplus_data
 
+
 def get_last_5_entries_sales():
     """
-    Collects collumns of data from sales worksheet, collectong the last 5 entries for each sandwich and returns the data as a list of lists.
+    Collects collumns of data from sales worksheet, collectong the last 
+    5 entries for each sandwich and returns the data as a list of lists.
     """
     sales = SHEET.worksheet("sales")
 
-    columns=[]
-    for ind in range(1,7):
+    columns = []
+    for ind in range(1, 7):
         column = sales.col_values(ind)
         columns.append(column[-5:])
     return columns
@@ -114,7 +117,6 @@ def calculate_stock_data(data):
         stock_num = average * 1.1
         new_stock_data.append(round(stock_num))
     return new_stock_data
-
 
 
 def main():
